@@ -1,0 +1,12 @@
+==============================
+       CAFETERÍA JAVA
+==============================
+Ticket nº: 1
+Cliente: PEPE
+Camarero: Carlos - Código: C01
+Productos:
+1. Café mediano - 1,80 €
+2. Bocadillo caliente - 3,50 €
+Total: 5,30 €
+==============================
+
