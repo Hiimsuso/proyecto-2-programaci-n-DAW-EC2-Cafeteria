@@ -21,6 +21,8 @@ public class Main {
                 new Comida("Croissant", 1.70, "Comida", false)
         };
 
+        System.out.println(catalogo[1].mostrarInformacion());
+
         // Esta clase se encarga del archivo donde guardamos el historial.
         GestorTickets gestorTickets = new GestorTickets();
 

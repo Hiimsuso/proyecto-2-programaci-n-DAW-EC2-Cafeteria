@@ -20,6 +20,8 @@ public class Producto implements Descontable {
         setCategoria(categoria);
     }
 
+
+
     public String getNombre() {
         return nombre;
     }
