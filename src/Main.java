@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -28,7 +29,7 @@ public class Main {
 
         System.out.println("=== NUEVO TICKET ===");
         Cliente cliente = crearCliente(teclado);
-        Ticket ticketActual = new Ticket(cliente, camarero, 10);
+        Ticket ticketActual = new Ticket(cliente, camarero);
 
         int opcion;
 
@@ -70,7 +71,7 @@ public class Main {
 
                         System.out.println("\n=== NUEVO TICKET ===");
                         cliente = crearCliente(teclado);
-                        ticketActual = new Ticket(cliente, camarero, 10);
+                        ticketActual = new Ticket(cliente, camarero);
 
                         System.out.println("Nuevo ticket nº "
                                 + ticketActual.getNumeroTicket()
@@ -195,10 +196,10 @@ public class Main {
 
         System.out.println("\n--- PRODUCTOS DEL TICKET ---");
 
-        Producto[] productos = ticket.getProductos();
+        ArrayList<Producto> productos = ticket.getProductos();
 
         for (int i = 0; i < ticket.getContadorProductos(); i++) {
-            System.out.println((i + 1) + ". " + productos[i].mostrarInformacion());
+            System.out.println((i + 1) + ". " + productos.get(i).mostrarInformacion());
         }
 
         int numeroProducto = leerEntero(teclado,
@@ -217,7 +218,7 @@ public class Main {
             return;
         }
 
-        Producto producto = productos[numeroProducto - 1];
+        Producto producto = productos.get(numeroProducto - 1);
         Descontable descontable = producto;
         double precioConDescuento = descontable.aplicarDescuento(porcentaje);
 

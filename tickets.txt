@@ -34,3 +34,15 @@ Productos:
 Total: 3,90 €
 ==============================
 
+==============================
+       CAFETERÍA JAVA
+==============================
+Ticket nº: 1
+Cliente: pepe
+Camarero: Carlos - Código: C01
+Productos:
+1. Café mediano - 1.80 €
+2. Zumo grande - 2.20 €
+Total: 4.00 €
+==============================
+

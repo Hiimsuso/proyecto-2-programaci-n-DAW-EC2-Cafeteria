@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Representa una venta de la cafetería.
  *
@@ -13,28 +15,20 @@ public class Ticket {
     private final int numeroTicket;
     private Cliente cliente;
     private Camarero camarero;
-    private Producto[] productos;
-    private int contadorProductos;
+    private ArrayList<Producto> productos;
 
     /**
      * Crea un ticket con una capacidad máxima de productos.
      *
      * @param cliente cliente asociado al ticket
      * @param camarero camarero que atiende la venta
-     * @param capacidadMaxima tamaño del array de productos
      */
-    public Ticket(Cliente cliente, Camarero camarero, int capacidadMaxima) {
+    public Ticket(Cliente cliente, Camarero camarero) {
         this.numeroTicket = siguienteNumero++;
         this.cliente = cliente;
         this.camarero = camarero;
+        this.productos = new ArrayList<>();
 
-        // Validación mediante condicional: la capacidad mínima será 1.
-        if (capacidadMaxima <= 0) {
-            capacidadMaxima = 1;
-        }
-
-        this.productos = new Producto[capacidadMaxima];
-        this.contadorProductos = 0;
     }
 
     public int getNumeroTicket() {
@@ -57,12 +51,15 @@ public class Ticket {
         this.camarero = camarero;
     }
 
-    public Producto[] getProductos() {
+    public ArrayList<Producto> getProductos() {
         return productos;
     }
 
     public int getContadorProductos() {
-        return contadorProductos;
+        return productos.size();
+    }
+    public boolean eliminarProducto(Producto producto) {
+        return productos.remove(producto);
     }
 
     /**
@@ -75,13 +72,7 @@ public class Ticket {
             return false;
         }
 
-        if (contadorProductos >= productos.length) {
-            System.out.println("No se pueden añadir más productos al ticket.");
-            return false;
-        }
-
-        productos[contadorProductos] = producto;
-        contadorProductos++;
+        productos.add(producto);
         return true;
     }
 
@@ -92,8 +83,8 @@ public class Ticket {
     public double calcularTotal() {
         double total = 0;
 
-        for (int i = 0; i < contadorProductos; i++) {
-            total += productos[i].getPrecio();
+        for (int i = 0; i < productos.size(); i++) {
+            total += productos.get(i).getPrecio();
         }
 
         return total;
@@ -131,13 +122,13 @@ public class Ticket {
 
         texto.append("Productos:\n");
 
-        if (contadorProductos == 0) {
+        if (productos.isEmpty()) {
             texto.append("No hay productos en el ticket.\n");
         } else {
-            for (int i = 0; i < contadorProductos; i++) {
+            for (int i = 0; i < productos.size(); i++) {
                 texto.append(i + 1)
                         .append(". ")
-                        .append(productos[i].mostrarInformacion())
+                        .append(productos.get(i).mostrarInformacion())
                         .append("\n");
             }
         }
