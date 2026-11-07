@@ -1,5 +1,5 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.nio.file.Path;
+import java.util.*;
 
 /**
  * Clase principal del programa.
@@ -22,10 +22,41 @@ public class Main {
                 new Comida("Croissant", 1.70, "Comida", false)
         };
 
+        try{
+            new Producto("Chuletón", -1.00, "Dulce");
+
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+
+        HashMap<String, ArrayList<Producto>> categorias = new HashMap<>();
+        for (Producto producto : catalogo){
+            String categoria = producto.getCategoria();
+            if (categorias.containsKey(categoria)){
+                categorias.get(categoria).add(producto);
+            }else{
+                ArrayList<Producto> lista = new ArrayList<>();
+                lista.add(producto);
+                categorias.put(categoria,lista);
+            }
+        }
+
+        for (Map.Entry<String, ArrayList<Producto>> e : categorias.entrySet()) {
+            System.out.println(e.getKey());
+            for (Producto producto : e.getValue()) {
+                System.out.println(producto.mostrarInformacion());
+            }
+        }
+
+        Queue<Ticket> cola = new LinkedList<>();
+
+
         System.out.println(catalogo[1].mostrarInformacion());
 
         // Esta clase se encarga del archivo donde guardamos el historial.
         GestorTickets gestorTickets = new GestorTickets();
+
+
 
         System.out.println("=== NUEVO TICKET ===");
         Cliente cliente = crearCliente(teclado);
@@ -68,6 +99,8 @@ public class Main {
                         System.out.println("Ticket nº "
                                 + ticketActual.getNumeroTicket()
                                 + " guardado correctamente.");
+                        cola.offer(ticketActual);
+                        gestorTickets.exportarTicketsJson(Path.of("ticket.json"),ticketActual);
 
                         System.out.println("\n=== NUEVO TICKET ===");
                         cliente = crearCliente(teclado);
@@ -84,6 +117,18 @@ public class Main {
                 case 7:
                     gestorTickets.mostrarTicketsGuardados();
                     break;
+
+                case 8:
+                    Ticket ticketAtendido = cola.poll();
+                    if (ticketAtendido != null){
+                        ticketAtendido.mostrarTicket();
+                        System.out.println("Quedan " + cola.size() + " tickets pendientes");
+
+                        }else{
+                        System.out.println("No hay tickets pendientes");
+                    }
+                    break;
+
 
                 case 0:
                     if (ticketActual.getContadorProductos() > 0) {
@@ -120,6 +165,7 @@ public class Main {
         System.out.println("5. Consultar total actual");
         System.out.println("6. Finalizar y guardar ticket");
         System.out.println("7. Ver tickets guardados");
+        System.out.println("8. Atender ticket");
         System.out.println("0. Salir");
         System.out.println("================================");
     }

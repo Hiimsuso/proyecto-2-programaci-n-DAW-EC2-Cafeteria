@@ -46,11 +46,12 @@ public class Producto implements Descontable {
      */
     public void setPrecio(double precio) {
         if (precio < 0) {
-            this.precio = 0;
-        } else {
+            throw new IllegalArgumentException("El precio no puede ser negativo");
+        }
+        else {
             this.precio = precio;
         }
-    }
+        }
 
     public String getCategoria() {
         return categoria;

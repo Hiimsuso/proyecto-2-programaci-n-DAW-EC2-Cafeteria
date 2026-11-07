@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.util.List;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Se encarga de guardar y consultar los tickets finalizados.
@@ -15,7 +18,7 @@ import java.io.IOException;
 public class GestorTickets {
 
     private static final String NOMBRE_ARCHIVO = "tickets.txt";
-
+    private static final ObjectMapper MAPPER = new ObjectMapper();
     /**
      * Guarda un ticket al final del archivo.
      *
@@ -65,6 +68,15 @@ public class GestorTickets {
 
         } catch (IOException e) {
             System.out.println("Error al leer los tickets: " + e.getMessage());
+        }
+    }
+
+    public void exportarTicketsJson(Path ruta, Ticket tickets){
+        try{
+            MAPPER.writeValue(ruta.toFile(), tickets);
+
+        }catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

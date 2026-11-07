@@ -61,6 +61,9 @@ public class Ticket {
     public boolean eliminarProducto(Producto producto) {
         return productos.remove(producto);
     }
+    public double getTotal() {
+        return calcularTotal();
+    }
 
     /**
      * Añade un producto al array si hay espacio disponible.
