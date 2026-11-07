@@ -129,6 +129,24 @@ public class Main {
                     }
                     break;
 
+                case 9:
+                    ArrayList<Producto> productos = ticketActual.getProductos();
+                    for (int i = 0; i < productos.size(); i++) {
+                        System.out.println((i + 1) + ". " + productos.get(i).mostrarInformacion());
+                    }
+                    int numeroProductoEliminar = leerEntero(teclado,
+                            "Seleccione el producto al que desea eliminar: ");
+                    if (numeroProductoEliminar < 1 || numeroProductoEliminar > productos.size()) {
+                        System.out.println("El producto seleccionado no existe en el ticket.");
+                    }else{
+                        Producto producto = productos.get(numeroProductoEliminar - 1);
+                        ticketActual.eliminarProducto(producto);
+                        System.out.println("Se ha eliminado el producto " + producto.getNombre());
+
+                    }
+                    break;
+
+
 
                 case 0:
                     if (ticketActual.getContadorProductos() > 0) {
@@ -166,6 +184,7 @@ public class Main {
         System.out.println("6. Finalizar y guardar ticket");
         System.out.println("7. Ver tickets guardados");
         System.out.println("8. Atender ticket");
+        System.out.println("9. Eliminar producto");
         System.out.println("0. Salir");
         System.out.println("================================");
     }
