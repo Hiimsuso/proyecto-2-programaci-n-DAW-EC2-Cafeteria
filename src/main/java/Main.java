@@ -50,9 +50,6 @@ public class Main {
 
         Queue<Ticket> cola = new LinkedList<>();
 
-
-        System.out.println(catalogo[1].mostrarInformacion());
-
         // Esta clase se encarga del archivo donde guardamos el historial.
         GestorTickets gestorTickets = new GestorTickets();
 
