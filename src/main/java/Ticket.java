@@ -62,7 +62,7 @@ public class Ticket {
         return productos.remove(producto);
     }
     public double getTotal() {
-        return calcularTotal();
+        return Math.round(calcularTotal() * 100.0) / 100.0;
     }
 
     /**

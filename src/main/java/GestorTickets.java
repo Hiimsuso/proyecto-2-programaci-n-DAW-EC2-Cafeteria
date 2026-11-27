@@ -5,6 +5,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -73,10 +76,28 @@ public class GestorTickets {
 
     public void exportarTicketsJson(Path ruta, Ticket tickets){
         try{
-            MAPPER.writeValue(ruta.toFile(), tickets);
+            String cliente = tickets.getCliente().getNombre();
+            String camarero = tickets.getCamarero().getNombre();
+            ArrayList<Map<String, Object>> productos = new ArrayList<>();
+            double total = tickets.getTotal();
+
+            for (Producto producto: tickets.getProductos()){
+                String nombre = producto.getNombre();
+                double precio = producto.getPrecio();
+                HashMap<String, Object> articulos = new HashMap<>();
+                articulos.put("nombre",nombre);
+                articulos.put("precio",precio);
+                productos.add(articulos);
+            }
+
+            TicketJson ticketjson = new TicketJson(cliente,camarero,productos,total);
+
+
+            MAPPER.writeValue(ruta.toFile(), ticketjson);
 
         }catch (IOException e) {
             System.out.println(e.getMessage());
         }
+
     }
 }
